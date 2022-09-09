@@ -1,7 +1,3 @@
-/public/build/fonts/glyphicons-*
-/public/build/images/glyphicons-*
-
-.php-version
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -12,13 +8,13 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+/public/images
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
+###> phpstorm project files
+/.idea/
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-###> symfony/webpack-encore-bundle ###
-/node_modules/
-npm-debug.log
-yarn-error.log
-###< symfony/webpack-encore-bundle ###
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
