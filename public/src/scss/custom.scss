@@ -272,7 +272,7 @@
 .glyphicon-menu-down              { &:before { content: "\e259"; } }
 .glyphicon-menu-up                { &:before { content: "\e260"; } }
 .left_col {
-  background: #2A3F54;
+  background: #f18932;
 }
 .container {
   width: 100%;
@@ -412,7 +412,7 @@
 }
 .profile_info h2 {
   font-size: 14px;
-  color: #ECF0F1;
+  color: #665b52;
   margin: 0;
   font-weight: 300;
 }
@@ -474,7 +474,7 @@
 
 
 @media (min-width: 480px) {
-  
+
   .nav_menu {
     position: static;
   }
@@ -505,7 +505,7 @@ body .container.body .right_col {
 .nav_title {
   width: 230px;
   float: left;
-  background: #2A3F54;
+  background: #f18932;
   border-radius: 0;
   height: 57px;
   padding: 0px;
@@ -531,7 +531,7 @@ body .container.body .right_col {
   .item{
     display:block;
   }
-  
+
 }
 @media (max-width: 1200px) {
   .x_title h2 {
@@ -643,7 +643,7 @@ body .container.body .right_col {
 }
 body {
   color: #73879C;
-  background: #2A3F54;
+  background: #f18932;
   font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   font-size: 13px;
   font-weight: 400;
@@ -713,7 +713,7 @@ table.no-margin .progress {
   .col-md-55 {
     width: 20%;
   }
-  
+
 }
 @media (min-width: 992px) {
   .col-md-55 {
@@ -894,22 +894,22 @@ a:hover, a:focus {
   background: none;
 }
 .nav li li.current-page a {
-  color: #fff;
+  color: #665b52;
 }
 .nav.side-menu> li.active > a {
   text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5b6479), color-stop(100%, #4c5566)), #686e78;
-  background: -webkit-linear-gradient(#334556, #2C4257), #2A3F54;
-  background: -moz-linear-gradient(#334556, #2C4257), #2A3F54;
-  background: -o-linear-gradient(#334556, #2C4257), #2A3F54;
-  background: linear-gradient(#334556, #2C4257), #2A3F54;
+  background: -webkit-linear-gradient(#334556, #2C4257), #f18932;
+  background: -moz-linear-gradient(#334556, #2C4257), #f18932;
+  background: -o-linear-gradient(#334556, #2C4257), #f18932;
+  background: linear-gradient(#334556, #2C4257), #f18932;
   -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
   box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
 }
 .navbar-brand, .navbar-nav>li>a {
   font-weight: 500;
-  color: #ECF0F1 !important;
+  color: #665b52 !important;
   margin-left: 0 !important;
   line-height: 32px;
 }
@@ -919,7 +919,7 @@ a:hover, a:focus {
   font-weight: 400;
   font-size: 22px;
   width: 100%;
-  color: #ECF0F1 !important;
+  color: #665b52 !important;
   margin-left: 0 !important;
   line-height: 59px;
   display: block;
@@ -1441,7 +1441,7 @@ table.jambo_table {
 
 table.jambo_table thead {
   background: rgba(52, 73, 94, 0.94);
-  color: #ECF0F1;
+  color: #665b52;
 }
 
 table.jambo_table tbody tr:hover td {
@@ -1847,7 +1847,7 @@ span.right {
   padding: 5px 0 0 0;
   position: fixed;
   width: 230px;
-  background: #2A3F54;
+  background: #f18932;
 }
 .sidebar-footer a {
   padding: 7px 0 3px;
