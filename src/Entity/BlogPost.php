@@ -142,7 +142,6 @@ class BlogPost
     public function setBlogImage(string $blogImage): self
     {
         $this->blogImage = $blogImage;
-
         return $this;
     }
 

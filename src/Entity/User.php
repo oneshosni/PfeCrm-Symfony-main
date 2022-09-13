@@ -85,12 +85,39 @@ class User implements UserInterface, EquatableInterface
      */
     private $historiques;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reclamation::class, mappedBy="createdBy", orphanRemoval=true)
+     */
+    private $reclamations;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $PhoneNumber;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * use Gedmo\Mapping\Annotation as Gedmo;
+     */
+    private $Birthday;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Address;
+
 
     public function __construct()
     {
         $this->blogPosts = new ArrayCollection();
         $this->blogPostsCreated = new ArrayCollection();
         $this->historiques = new ArrayCollection();
+        $this->reclamations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -354,5 +381,83 @@ class User implements UserInterface, EquatableInterface
         if ($user instanceof User)
         return $this->isValid() && !$this->isDeleted() && $this->getPassword() == $user->getPassword() && $this->getUsername() == $user->getUsername()
             && $this->getEmail() == $user->getEmail() ;
+    }
+
+    /**
+     * @return Collection<int, Reclamation>
+     */
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation): self
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations[] = $reclamation;
+            $reclamation->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): self
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            // set the owning side to null (unless already changed)
+            if ($reclamation->getCreatedBy() === $this) {
+                $reclamation->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->PhoneNumber;
+    }
+
+    public function setPhoneNumber(?string $PhoneNumber): self
+    {
+        $this->PhoneNumber = $PhoneNumber;
+
+        return $this;
+    }
+
+    public function getBirthday(): ?\DateTimeInterface
+    {
+        return $this->Birthday;
+    }
+
+    public function setBirthday(?\DateTimeInterface $Birthday): self
+    {
+        $this->Birthday = $Birthday;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->Address;
+    }
+
+    public function setAddress(string $Address): self
+    {
+        $this->Address = $Address;
+
+        return $this;
     }
 }

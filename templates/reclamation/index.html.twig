@@ -1,0 +1,45 @@
+{% extends "admin/bars.html.twig" %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block contenpage %}
+    <h1>Reclamation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Content</th>
+                <th>BlobImage</th>
+                <th>CreatedAt</th>
+                <th>Deleted</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.id }}</td>
+                <td>{{ reclamation.Titre }}</td>
+                <td>{{ reclamation.Type }}</td>
+                <td>{{ reclamation.Content }}</td>
+                <td>{{ reclamation.blobImage }}</td>
+                <td>{{ reclamation.createdAt ? reclamation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ reclamation.deleted ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show</a>
+                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+{% endblock %}

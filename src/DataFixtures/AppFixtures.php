@@ -27,10 +27,8 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $roles = [
-            "ROLE_SUPERUSER" => "Super Admin",
-            "ROLE_EDITORIAL" => "Manager",
-            "ROLE_ADMINISTRATOR" => "Admin",
-            "ROLE_WRITER" => "Redacteur"
+            "ROLE_USER" => "User",
+            "ROLE_ADMINISTRATOR" => "Admin"
         ];
 
         foreach ($roles as $key => $value) {
@@ -44,6 +42,7 @@ class AppFixtures extends Fixture
         }
 
         $user = new User();
+        $user2 = new User();
         if (!$manager->find(User::class, 1)) {
             $user->setUsername('admin');
             $user->setRoles(["ROLE_SUPERUSER"]);
@@ -53,8 +52,26 @@ class AppFixtures extends Fixture
             $user->setValid(true);
             $user->setDeleted(false);
             $user->setAdmin(true);
+            $user->setBirthday(new \DateTime());
+            $user->setGender("Male");
+            $user->setAddress("");
+            $user->setPhoneNumber("+216 53585935");
             $manager->persist($user);
+            $manager->flush();
 
+            $user2->setUsername('user');
+            $user2->setRoles(["ROLE_USER"]);
+            $user2->setPassword($this->encoder->encodePassword($user2, 'user'));
+            $user2->setNomComplet('User');
+            $user2->setEmail('user@example.com');
+            $user2->setValid(true);
+            $user2->setDeleted(false);
+            $user2->setAdmin(false);
+            $user2->setBirthday(new \DateTime());
+            $user2->setGender("Male");
+            $user2->setAddress("");
+            $user2->setPhoneNumber("+216 53585935");
+            $manager->persist($user2);
             $manager->flush();
         }
     }

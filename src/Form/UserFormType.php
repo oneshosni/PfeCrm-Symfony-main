@@ -8,6 +8,7 @@ use App\Entity\Role;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,6 +25,10 @@ class UserFormType extends AbstractType
         $builder
             ->add("username", TextType::class, ["label" => $this->translator->trans('backend.user.username')])
             ->add("email", EmailType::class)
+            ->add("birthday", DateType::class)
+            ->add("PhoneNumber", TextType::class)
+            ->add("gender", TextType::class)
+            ->add("Address", TextType::class)
             ->add("nomComplet", TextType::class, ["label" => $this->translator->trans('backend.user.name')])
             ->add("justpassword", TextType::class, [
                 "label" => $this->translator->trans('backend.user.password'),

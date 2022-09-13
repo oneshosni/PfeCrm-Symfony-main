@@ -1,0 +1,46 @@
+{% extends "admin/bars.html.twig" %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block contenpage %}
+    <h1>Reclamation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reclamation.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ reclamation.Titre }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ reclamation.Type }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ reclamation.Content }}</td>
+            </tr>
+            <tr>
+                <th>BlobImage</th>
+                <td>{{ reclamation.blobImage }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ reclamation.createdAt ? reclamation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Deleted</th>
+                <td>{{ reclamation.deleted ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+
+    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+
+    {{ include('reclamation/_delete_form.html.twig') }}
+{% block contenpage %}

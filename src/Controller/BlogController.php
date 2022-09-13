@@ -51,7 +51,7 @@ class BlogController extends BaseController
 
     /**
      * @Route("/admin/blog",name="app_admin_blogPosts")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_USER")
      */
     public function blogPosts(){
         $blogPosts = $this->blogPostRepository->findAll();
@@ -60,7 +60,7 @@ class BlogController extends BaseController
 
     /**
      * @Route("/admin/blog/new",name="app_admin_new_blogPosts")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_USER")
      */
     public function newBlogPost(Request $request){
         $historique = new Historique();
@@ -100,7 +100,7 @@ class BlogController extends BaseController
 
     /**
      * @Route("/admin/blog/edit/{id}",name="app_admin_edit_blogPosts")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_USER")
      */
     public function editBlogPost(BlogPost $blogPost,Request $request){
         $oldPost = new OldPost();
@@ -143,7 +143,7 @@ class BlogController extends BaseController
 
     /**
      * @Route("/admin/blog/changevalidite/{id}",name="app_admin_changevalidite_blogPost",methods={"post"})
-     * @IsGranted("ROLE_EDITORIAL")
+     * @IsGranted("ROLE_USER")
      */
     public function activate(BlogPost $blogPost){
         if ($blogPost->getValid())
@@ -163,7 +163,7 @@ class BlogController extends BaseController
 
     /**
      * @Route("/admin/blog/delete/{id}",name="app_admin_delete_blogPost")
-     * @IsGranted("ROLE_EDITORIAL")
+     * @IsGranted("ROLE_USER")
      */
     public function delete(BlogPost $blogPost){
         $historique = new Historique();
@@ -180,7 +180,7 @@ class BlogController extends BaseController
 
     /**
      * @Route("/admin/blog/groupaction",name="app_admin_groupaction_blogPost")
-     * @IsGranted("ROLE_EDITORIAL ")
+     * @IsGranted("ROLE_USER ")
      */
     public function groupAction(Request $request){
         $action = $request->get("action");
@@ -188,7 +188,7 @@ class BlogController extends BaseController
         $historique = new Historique();
         $historique->setUser($this->getUser());
         $bloPosts = $this->blogPostRepository->findBy(["id"=>$ids]);
-        if ($action=="desactiver" && $this->isGranted("ROLE_EDITORIAL")){
+        if ($action=="desactiver" && $this->isGranted("ROLE_USER")){
             foreach ($bloPosts as $blogPost) {
                 $blogPost->setValid(false);
                 $historique->setAction("Desactiver")
@@ -196,7 +196,7 @@ class BlogController extends BaseController
                 $this->entityManager->persist($historique);
                 $this->entityManager->persist($blogPost);
             }
-        }else if ($action=="activer" && $this->isGranted("ROLE_EDITORIAL")){
+        }else if ($action=="activer" && $this->isGranted("ROLE_USER")){
             foreach ($bloPosts as $blogPost) {
                 $blogPost->setValid(true);
                 $historique->setAction("Activer")
@@ -204,7 +204,7 @@ class BlogController extends BaseController
                 $this->entityManager->persist($historique);
                 $this->entityManager->persist($blogPost);
             }
-        }else if ($action=="supprimer" && $this->isGranted("ROLE_EDITORIAL")){
+        }else if ($action=="supprimer" && $this->isGranted("ROLE_USER")){
             foreach ($bloPosts as $blogPost) {
                 $blogPost->setDeleted(true);
                 $historique->setAction("Suppression")
@@ -297,7 +297,7 @@ class BlogController extends BaseController
 
     /**
      * @Route("/admin/blog/historique/oldpost/{id}",name="app_admin_oldpost_blogPosts")
-     * @IsGranted("ROLE_EDITORIAL")
+     * @IsGranted("ROLE_USER")
      */
     public function oldPost(OldPost $oldPost){
         $form = $this->createForm(OldPostFormType::class,$oldPost);
@@ -306,7 +306,7 @@ class BlogController extends BaseController
 
     /**
      * @Route("/admin/blog/historiques",name="app_admin_allhistorique_blogPosts")
-     * @IsGranted("ROLE_EDITORIAL")
+     * @IsGranted("ROLE_USER")
      */
     public function historiques(){
         $historiques = $this->historiqueRepository->findAll() ;

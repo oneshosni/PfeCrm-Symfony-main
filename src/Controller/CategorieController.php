@@ -27,7 +27,7 @@ class CategorieController extends BaseController
 
     /**
      * @Route("/admin/categorie",name="app_admin_categories")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_USER")
      */
     public function users(){
         $categories = $this->categorieRepository->findAll();
@@ -36,7 +36,7 @@ class CategorieController extends BaseController
 
     /**
      * @Route("/admin/categorie/new",name="app_admin_new_categorie")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_USER")
      */
     public function newCategorie(Request $request){
         $form = $this->createForm(CategorieFormType::class);
@@ -57,7 +57,7 @@ class CategorieController extends BaseController
 
     /**
      * @Route("/admin/categorie/edit/{id}",name="app_admin_edit_categorie")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_USER")
      */
     public function editCategorie(Categorie $categorie,Request $request){
         $form = $this->createForm(CategorieFormType::class,$categorie);
@@ -75,7 +75,7 @@ class CategorieController extends BaseController
 
     /**
      * @Route("/admin/categorie/changevalidite/{id}",name="app_admin_changevalidite_categorie",methods={"post"})
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_USER")
      */
     public function activate(Categorie $categorie){
         $categorie = $this->categorieRepository->changeValidite($categorie);
@@ -84,7 +84,7 @@ class CategorieController extends BaseController
 
     /**
      * @Route("/admin/categorie/delete/{id}",name="app_admin_delete_categorie")
-     * @IsGranted("ROLE_EDITORIAL")
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Categorie $categorie){
         $categorie = $this->categorieRepository->delete($categorie);
@@ -93,23 +93,23 @@ class CategorieController extends BaseController
 
     /**
      * @Route("/admin/categorie/groupaction",name="app_admin_groupaction_categorie")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_USER")
      */
     public function groupAction(Request $request){
         $action = $request->get("action");
         $ids = $request->get("ids");
         $categories = $this->categorieRepository->findBy(["id"=>$ids]);
-        if ($action=="desactiver" && $this->isGranted("ROLE_EDITORIAL")){
+        if ($action=="desactiver" && $this->isGranted("ROLE_USER")){
             foreach ($categories as $categorie) {
                 $categorie->setValid(false);
                 $this->entityManager->persist($categorie);
             }
-        }else if ($action=="activer" && $this->isGranted("ROLE_EDITORIAL")){
+        }else if ($action=="activer" && $this->isGranted("ROLE_USER")){
             foreach ($categories as $categorie) {
                 $categorie->setValid(true);
                 $this->entityManager->persist($categorie);
             }
-        }else if ($action=="supprimer" && $this->isGranted("ROLE_EDITORIAL")){
+        }else if ($action=="supprimer" && $this->isGranted("ROLE_USER")){
             foreach ($categories as $categorie) {
                 $categorie->setDeleted(true);
                 $this->entityManager->persist($categorie);

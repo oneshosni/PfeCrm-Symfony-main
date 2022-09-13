@@ -49,6 +49,10 @@
 									<th>{{ "backend.user.username"|trans }}</th>
 									<th>{{ "backend.user.email"|trans }}</th>
 									<th>{{ "backend.user.name"|trans }}</th>
+									<th>{{ "backend.user.birthday"|trans }}</th>
+									<th>{{ "backend.user.phone"|trans }}</th>
+									<th>{{ "backend.user.gender"|trans }}</th>
+									<th>{{ "backend.user.address"|trans }}</th>
 									<th>{{ "backend.user.modifier"|trans }}</th>
 									<th>{{ "backend.user.status"|trans }}</th>
 									<th>{{ "backend.user.delete"|trans }}</th>
@@ -60,6 +64,10 @@
 											<td>{{ user.username }}</td>
 											<td>{{ user.email }}</td>
 											<td>{{ user.nomComplet }}</td>
+											<td>{{ user.birthday | date }}</td>
+											<td>{{ user.PhoneNumber }}</td>
+											<td>{{ user.gender }}</td>
+											<td>{{ user.Address }}</td>
 											<td>
 												<a class="btn btn-primary" href="{{ path('app_admin_edit_user',{"id":user.id}) }}">
 													<i class="fa fa-edit"></i>
