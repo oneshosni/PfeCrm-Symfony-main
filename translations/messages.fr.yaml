@@ -16,9 +16,13 @@ backend:
     home: Accueil
     user: Utilisateur
     manage: Gérer
+    manager:
+      product: product
+      inforequest: Demande Info
     categories: Categorie
     blog: Blog
     history: Historique
+    produit: Gestion De Produit
   role:
     choice_role: Choisissez un role
   user:

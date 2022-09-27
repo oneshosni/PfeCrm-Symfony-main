@@ -25,7 +25,7 @@
                         <div class="row">
                             <form action="{{ path('app_admin_groupaction_blogPost') }}" id="grpaction" method="post" name="grpaction">
                                 <div class="form-group form-inline">
-                                    {%  if is_granted("ROLE_EDITORIAL") %}
+                                    {%  if is_granted("ROLE_ADMIN") %}
                                         <select class="form-control" name="action" required id="action_select">
                                             <option value="">Action de groupe</option>
                                             <option value="desactiver">Desactiver</option>
@@ -39,14 +39,14 @@
                             </form>
                             <table id="example" class="display table table-striped table-bordered {% if is_granted("ROLE_EDITORIAL") %} dataminetables {% else %} datanotminetables {% endif %}" >
                                 <thead>
-                                {% if is_granted("ROLE_EDITORIAL") %}
+                                {% if is_granted("ROLE_ADMIN") %}
                                     <th><input type="checkbox" id="select_all" name="select_all"></th>
                                 {% endif %}
                                 <th>Titre</th>
                                 <th>Date Creation</th>
                                 <th>Date de publication</th>
                                 <th>Modifier</th>
-                                {% if is_granted("ROLE_EDITORIAL") %}
+                                {% if is_granted("ROLE_ADMIN") %}
                                     <th>Etat ?</th>
                                     <th>Suprimer</th>
                                 {% endif %}
@@ -55,14 +55,14 @@
                                 <tbody>
                                 {% for blogPost in blogPosts|filter(blogPost => not blogPost.deleted)  %}
                                     <tr>
-                                        {% if is_granted("ROLE_EDITORIAL") %}
+                                        {% if is_granted("ROLE_ADMIN") %}
                                             <td><input type="checkbox" class="chkgrp" name="chkgrp[]" value="{{ blogPost.id }}"></td>
                                         {% endif %}
                                         <td>{{ blogPost.titre }}</td>
                                         <td>{{ blogPost.createdAt|date("d/m/y h:i:s") }}</td>
                                         <td>{{ blogPost.plubishedAt|date("d/m/y h:i:s") }}</td>
                                         <td><a class="btn btn-primary" href="{{ path('app_admin_edit_blogPosts',{"id":blogPost.id}) }}"><i class="fa fa-edit"></i></a></td>
-                                        {% if is_granted("ROLE_EDITORIAL") %}
+                                        {% if is_granted("ROLE_ADMIN") %}
                                             <td>
                                                 {%  if blogPost.valid %}
                                                     <a class="btn btn-success activate-link" href="{{ path('app_admin_changevalidite_blogPost', {'id': blogPost.id}) }}"> <i class="fa fa-check"></i></a>

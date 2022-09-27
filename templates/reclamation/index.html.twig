@@ -3,43 +3,73 @@
 {% block title %}Reclamation index{% endblock %}
 
 {% block contenpage %}
-    <h1>Reclamation index</h1>
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h5>
+                {{ "backend.user.listing"|trans }}
+            </h5>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Type</th>
-                <th>Content</th>
-                <th>BlobImage</th>
-                <th>CreatedAt</th>
-                <th>Deleted</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reclamation in reclamations %}
-            <tr>
-                <td>{{ reclamation.id }}</td>
-                <td>{{ reclamation.Titre }}</td>
-                <td>{{ reclamation.Type }}</td>
-                <td>{{ reclamation.Content }}</td>
-                <td>{{ reclamation.blobImage }}</td>
-                <td>{{ reclamation.createdAt ? reclamation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ reclamation.deleted ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show</a>
-                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="clearfix"></div>
 
-    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>
+                        {{ "backend.reclamation.reclamation_listing"|trans }}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a href="{{ path('app_reclamation_new') }}" class="btn btn-success">NEW</a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <table id="example" class="display table table-striped table-bordered dataminetables">
+                            <thead>
+                            <th>{{ "backend.user.id"|trans }}</th>
+                            <th>{{ "backend.user.Titre"|trans }}</th>
+                            <th>{{ "backend.user.Type"|trans }}</th>
+                            <th>{{ "backend.user.Content"|trans }}</th>
+                            <th>{{ "backend.user.blobImage"|trans }}</th>
+                            <th>{{ "backend.user.createdAt"|trans }}</th>
+                            <th>{{ "backend.user.deleted"|trans }}</th>
+                            <th>{{ "backend.user.modifier"|trans }}</th>
+                            <th>{{ "backend.user.delete"|trans }}</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {% for reclamation in reclamations %}
+                                <tr>
+                                <td>{{ reclamation.id }}</td>
+                                    <td>{{ reclamation.Titre }}</td>
+                                    <td>{{ reclamation.Type }}</td>
+                                    <td>{{ reclamation.Content }}</td>
+                                    <td>{{ reclamation.blobImage }}</td>
+                                    <td>{{ reclamation.createdAt ? reclamation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>{{ reclamation.deleted ? 'Yes' : 'No' }}</td>
+                                    <td>
+                                        <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_reclamation_delete', {'id': reclamation.id}) }}"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="8">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

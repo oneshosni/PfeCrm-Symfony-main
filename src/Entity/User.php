@@ -111,6 +111,16 @@ class User implements UserInterface, EquatableInterface
      */
     private $Address;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="CreatedBy", orphanRemoval=true)
+     */
+    private $non;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DemandeInfo::class, mappedBy="CreatedBy", orphanRemoval=true)
+     */
+    private $demandeInfos;
+
 
     public function __construct()
     {
@@ -118,6 +128,8 @@ class User implements UserInterface, EquatableInterface
         $this->blogPostsCreated = new ArrayCollection();
         $this->historiques = new ArrayCollection();
         $this->reclamations = new ArrayCollection();
+        $this->non = new ArrayCollection();
+        $this->demandeInfos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -457,6 +469,66 @@ class User implements UserInterface, EquatableInterface
     public function setAddress(string $Address): self
     {
         $this->Address = $Address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getNon(): Collection
+    {
+        return $this->non;
+    }
+
+    public function addNon(Produit $non): self
+    {
+        if (!$this->non->contains($non)) {
+            $this->non[] = $non;
+            $non->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNon(Produit $non): self
+    {
+        if ($this->non->removeElement($non)) {
+            // set the owning side to null (unless already changed)
+            if ($non->getCreatedBy() === $this) {
+                $non->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DemandeInfo>
+     */
+    public function getDemandeInfos(): Collection
+    {
+        return $this->demandeInfos;
+    }
+
+    public function addDemandeInfo(DemandeInfo $demandeInfo): self
+    {
+        if (!$this->demandeInfos->contains($demandeInfo)) {
+            $this->demandeInfos[] = $demandeInfo;
+            $demandeInfo->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeInfo(DemandeInfo $demandeInfo): self
+    {
+        if ($this->demandeInfos->removeElement($demandeInfo)) {
+            // set the owning side to null (unless already changed)
+            if ($demandeInfo->getCreatedBy() === $this) {
+                $demandeInfo->setCreatedBy(null);
+            }
+        }
 
         return $this;
     }

@@ -15,11 +15,15 @@ backend:
   menu:
     home: Home
     user: User
-    manage: Manage
+    manage: Gérer
+    manager:
+      product: Product
+      inforequest: info request
     categories: Categories
     blog: Blog
     history: History
     reclamation: Reclamation
+    produit: Product Management
   role:
     choice_role: Choose a role
   user:
