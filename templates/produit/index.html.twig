@@ -1,0 +1,48 @@
+{% extends "admin/bars.html.twig" %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block contenpage %}
+    <h1>Produit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                {% if is_granted("ROLE_ADMIN") %}
+                <th>Id</th>
+                {% endif %}
+                <th>Name</th>
+                <th>Image</th>
+                <th>Prix</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                {% if is_granted("ROLE_ADMIN") %}
+                <td>{{ produit.id }}</td>
+                {% endif %}
+                <td>{{ produit.Name }}</td>
+                <td><img src="{{ asset(imagepath ~ produit.Image ) }} " width='100px' height='50px' /></td>
+                <td>{{ produit.Prix }}</td>
+
+                <td>
+                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted("ROLE_ADMIN") %}
+    <a href="{{ path('app_produit_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

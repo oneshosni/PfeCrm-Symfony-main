@@ -1,0 +1,11 @@
+{% extends "admin/bars.html.twig" %}
+
+{% block title %}New DemandeInfo{% endblock %}
+
+{% block contenpage %}
+    <h1>Create new DemandeInfo</h1>
+
+    {{ include('demande_info/_form.html.twig') }}
+
+    <a href="{{ path('app_demande_info_index') }}">back to list</a>
+{% endblock %}

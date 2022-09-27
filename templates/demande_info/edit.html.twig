@@ -1,0 +1,13 @@
+{% extends "admin/bars.html.twig" %}
+
+{% block title %}Edit DemandeInfo{% endblock %}
+
+{% block contenpage %}
+    <h1>Edit DemandeInfo</h1>
+
+    {{ include('demande_info/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_demande_info_index') }}">back to list</a>
+
+    {{ include('demande_info/_delete_form.html.twig') }}
+{% endblock %}

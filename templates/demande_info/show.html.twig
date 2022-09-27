@@ -1,0 +1,30 @@
+{% extends "admin/bars.html.twig" %}
+
+{% block title %}DemandeInfo{% endblock %}
+
+{% block contenpage %}
+    <h1>DemandeInfo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande_info.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ demande_info.Description }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ demande_info.Type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demande_info_index') }}">back to list</a>
+
+    <a href="{{ path('app_demande_info_edit', {'id': demande_info.id}) }}">edit</a>
+
+    {{ include('demande_info/_delete_form.html.twig') }}
+{% endblock %}

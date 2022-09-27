@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+
+                        {{ form_widget(form) }}
+{% if form.vars.value.Image is not empty %}
+    <div class="item form-group">
+        Image
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+            <img src="{{ asset('images/Blog/'~form.vars.value.Image)|imagine_filter("keep_ratio_thumbnail_small") }}" alt="">
+        </div>
+    </div>
+{% endif %}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
