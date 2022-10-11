@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DemandeInfoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,6 +35,20 @@ class DemandeInfo
      */
     private $CreatedBy;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Categorie::class, mappedBy="demandeInfo")
+     */
+    private $categories;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="demandeInfos")
+     */
+    private $Produit;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -73,4 +89,18 @@ class DemandeInfo
 
         return $this;
     }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->Produit;
+    }
+
+    public function setProduit(?Produit $Produit): self
+    {
+        $this->Produit = $Produit;
+
+        return $this;
+    }
+
+
 }

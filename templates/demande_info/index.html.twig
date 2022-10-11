@@ -5,13 +5,17 @@
 {% block contenpage %}
     <h1>DemandeInfo index</h1>
 
-    <table class="table">
+    <table id="example" class="display table table-striped table-bordered dataminetables">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Description</th>
                 <th>Type</th>
-                <th>actions</th>
+                <th>Produit</th>
+                {% if is_granted("ROLE_SUPERUSER") %}
+                <th>Concernant le client</th>
+                {% endif %}
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,9 +24,15 @@
                 <td>{{ demande_info.id }}</td>
                 <td>{{ demande_info.Description }}</td>
                 <td>{{ demande_info.Type }}</td>
+                <td>{{ demande_info.Produit.Name }}</td>
+                {% if is_granted("ROLE_SUPERUSER") %}
+                <td>{{ demande_info.CreatedBy.nomComplet }}</td>
+                {% endif %}
                 <td>
                     <a href="{{ path('app_demande_info_show', {'id': demande_info.id}) }}">show</a>
-                    <a href="{{ path('app_demande_info_edit', {'id': demande_info.id}) }}">edit</a>
+                    {% if is_granted("ROLE_SUPERUSER") == false %}
+                        <a href="{{ path('app_demande_info_edit', {'id': demande_info.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -32,6 +42,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted("ROLE_SUPERUSER") == false %}
     <a href="{{ path('app_demande_info_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

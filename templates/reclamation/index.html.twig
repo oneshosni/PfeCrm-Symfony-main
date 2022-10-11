@@ -7,24 +7,22 @@
     <div class="page-title">
         <div class="title_left">
             <h5>
-                {{ "backend.user.listing"|trans }}
+                {{ "backend.user.reclamations"|trans }}
             </h5>
         </div>
     </div>
-
     <div class="clearfix"></div>
-
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>
-                        {{ "backend.reclamation.reclamation_listing"|trans }}</h2>
+                    {% if is_granted("ROLE_SUPERUSER") == false %}
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
                             <a href="{{ path('app_reclamation_new') }}" class="btn btn-success">NEW</a>
                         </li>
                     </ul>
+                    {% endif %}
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -37,26 +35,31 @@
                             <th>{{ "backend.user.Content"|trans }}</th>
                             <th>{{ "backend.user.blobImage"|trans }}</th>
                             <th>{{ "backend.user.createdAt"|trans }}</th>
-                            <th>{{ "backend.user.deleted"|trans }}</th>
+                            {% if is_granted("ROLE_SUPERUSER") == false %}
                             <th>{{ "backend.user.modifier"|trans }}</th>
+                            {% endif %}
                             <th>{{ "backend.user.delete"|trans }}</th>
+                            <th>{{ "backend.user.show"|trans }}</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    {% for reclamation in reclamations %}
+                            {% for reclamation in reclamations %}
                                 <tr>
                                 <td>{{ reclamation.id }}</td>
                                     <td>{{ reclamation.Titre }}</td>
                                     <td>{{ reclamation.Type }}</td>
                                     <td>{{ reclamation.Content }}</td>
                                     <td>{{ reclamation.blobImage }}</td>
-                                    <td>{{ reclamation.createdAt ? reclamation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                                     <td>{{ reclamation.deleted ? 'Yes' : 'No' }}</td>
+                                    {% if is_granted("ROLE_SUPERUSER") == false %}
                                     <td>
                                         <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}"><i class="fa fa-edit"></i></a>
                                     </td>
+                                    {%  endif %}
                                     <td>
                                         <a href="{{ path('app_reclamation_delete', {'id': reclamation.id}) }}"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}"><i class="fa fa-book"></i></a>
                                     </td>
                                 </tr>
                             {% else %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,6 +40,16 @@ class Produit
      */
     private $CreatedBy;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DemandeInfo::class, mappedBy="Prduit")
+     */
+    private $demandeInfos;
+
+    public function __construct()
+    {
+        $this->demandeInfos = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,7 +63,6 @@ class Produit
     public function setName(string $Name): self
     {
         $this->Name = $Name;
-
         return $this;
     }
 
@@ -63,7 +74,6 @@ class Produit
     public function setImage(?string $Image): self
     {
         $this->Image = $Image;
-
         return $this;
     }
 
@@ -89,5 +99,39 @@ class Produit
         $this->CreatedBy = $CreatedBy;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, DemandeInfo>
+     */
+    public function getDemandeInfos(): Collection
+    {
+        return $this->demandeInfos;
+    }
+
+    public function addDemandeInfo(DemandeInfo $demandeInfo): self
+    {
+        if (!$this->demandeInfos->contains($demandeInfo)) {
+            $this->demandeInfos[] = $demandeInfo;
+            $demandeInfo->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeInfo(DemandeInfo $demandeInfo): self
+    {
+        if ($this->demandeInfos->removeElement($demandeInfo)) {
+            // set the owning side to null (unless already changed)
+            if ($demandeInfo->getProduit() === $this) {
+                $demandeInfo->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }

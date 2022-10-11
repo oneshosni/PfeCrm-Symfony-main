@@ -9,19 +9,36 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Security;
 /**
  * @Route("/demande/info")
  */
 class DemandeInfoController extends AbstractController
 {
+
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
+
     /**
      * @Route("/", name="app_demande_info_index", methods={"GET"})
      */
     public function index(DemandeInfoRepository $demandeInfoRepository): Response
     {
+        $user = $this->security->getUser();
+        if(strlen(str_replace($user->getRoles(), '', "ROLE_SUPERUSER")) !== strlen("ROLE_SUPERUSER"))
+            return $this->render('demande_info/index.html.twig', [
+                'demande_infos' => $demandeInfoRepository->findAll(),
+            ]);
         return $this->render('demande_info/index.html.twig', [
-            'demande_infos' => $demandeInfoRepository->findAll(),
+            'demande_infos' => $demandeInfoRepository->findBy(["CreatedBy" => $user]),
         ]);
     }
 
@@ -33,7 +50,8 @@ class DemandeInfoController extends AbstractController
         $demandeInfo = new DemandeInfo();
         $form = $this->createForm(DemandeInfoType::class, $demandeInfo);
         $form->handleRequest($request);
-
+        $user = $this->security->getUser();
+        $demandeInfo->setCreatedBy($user);
         if ($form->isSubmitted() && $form->isValid()) {
             $demandeInfoRepository->add($demandeInfo);
             return $this->redirectToRoute('app_demande_info_index', [], Response::HTTP_SEE_OTHER);

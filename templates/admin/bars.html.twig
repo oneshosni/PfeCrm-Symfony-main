@@ -37,20 +37,11 @@
                             </ul>
                         </li>
                         {% endif %}
+                        <li><a href="{{ path('app_admin_user_profile') }}"><i class="fa fa-newspaper-o"></i> {{ "backend.menu.profile"|trans }} </a>
+
+                        </li>
                         {% if is_granted("ROLE_USER") %}
-                        <li><a><i class="fa fa-bookmark"></i>{{ "backend.menu.categories"|trans }} <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="{{ path('app_admin_categories') }}">{{ "backend.menu.manage"|trans }}</a></li>
-                            </ul>
-                        </li>
-                        <li><a><i class="fa fa-clipboard"></i> {{ "backend.menu.blog"|trans }} <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="{{ path('app_admin_blogPosts') }}">{{ "backend.menu.manage"|trans }}</a></li>
-                                {% if is_granted("ROLE_USER") %}
-                                    <li><a href="{{ path('app_admin_allhistorique_blogPosts') }}">{{ "backend.menu.history"|trans }}</a></li>
-                                {% endif %}
-                            </ul>
-                        </li>
+
                             <li><a><i class="fa fa-clipboard"></i> {{ "backend.menu.reclamation"|trans }} <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{{ path('app_reclamation_index') }}">{{ "backend.menu.manage"|trans }}</a></li>

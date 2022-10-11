@@ -13,6 +13,7 @@ backend:
     choice_action: Selectionner une action
     no_item_selected: Aucun article selectionné
   menu:
+    profile: Profile
     home: Accueil
     user: Utilisateur
     manage: Gérer
@@ -26,8 +27,15 @@ backend:
   role:
     choice_role: Choisissez un role
   user:
+    birthday : Date de naissane
+    gender : Sexe
+    address : Adresse
+    phone : Numéro de téléphone
+    show: Afficher
+    reclamations : Liste des réclamations
+    profile_listing : Mes Informations
     listing: Listing
-    user_listing: Liste des ustilisateurs
+    user_listing: Liste des utilisateurs
     group_actions: Action de groupe
     deactivate: Desactiver
     Activate: Activer
@@ -50,3 +58,10 @@ backend:
     changed_password: Mot de passe modifié
     add_user: Utilisateur ajouté
     modify_user: Utilisateur modifié
+    id : Id
+    Titre: Titre
+    Type : Type
+    blobImage : Image
+    deleted : deleted
+    Content : sujet
+    createdAt : date de création

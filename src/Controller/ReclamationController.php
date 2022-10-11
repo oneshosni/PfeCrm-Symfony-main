@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/reclamation")
@@ -16,12 +17,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReclamationController extends AbstractController
 {
     /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
+
+    /**
+     * @Route
+    /**
      * @Route("/", name="app_reclamation_index", methods={"GET"})
      */
     public function index(ReclamationRepository $reclamationRepository): Response
     {
+        $user = $this->security->getUser();
+        if(strlen(str_replace($user->getRoles(), '', "ROLE_SUPERUSER")) !== strlen("ROLE_SUPERUSER"))
+            return $this->render('reclamation/index.html.twig', [
+                'reclamations' => $reclamationRepository->findAll(),
+            ]);
         return $this->render('reclamation/index.html.twig', [
-            'reclamations' => $reclamationRepository->findAll(),
+            'reclamations' => $reclamationRepository->findBy(["createdBy" => $user]),
         ]);
     }
 
@@ -33,8 +52,11 @@ class ReclamationController extends AbstractController
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
-
+        $user = $this->security->getUser();
+        $reclamation->setCreatedBy($user);
         if ($form->isSubmitted() && $form->isValid()) {
+            $reclamation->setDeleted(0);
+
             $reclamationRepository->add($reclamation);
             return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
         }

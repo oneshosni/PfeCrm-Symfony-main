@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserFormType extends AbstractType
 {
@@ -25,9 +26,19 @@ class UserFormType extends AbstractType
         $builder
             ->add("username", TextType::class, ["label" => $this->translator->trans('backend.user.username')])
             ->add("email", EmailType::class)
-            ->add("birthday", DateType::class)
+            ->add("birthday", DateType::class , array(
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y')-100),
+                'months' => range(1, 12),
+                'days' => range(1, 31),
+            ))
             ->add("PhoneNumber", TextType::class)
-            ->add("gender", TextType::class)
+            ->add("gender", ChoiceType::class, [
+                'choices'  => [
+                    'Homme' => 'Male',
+                    'Femme' => 'Female',
+                    'Autre' => 'Other',
+                ]])
             ->add("Address", TextType::class)
             ->add("nomComplet", TextType::class, ["label" => $this->translator->trans('backend.user.name')])
             ->add("justpassword", TextType::class, [

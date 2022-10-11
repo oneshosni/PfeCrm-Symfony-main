@@ -27,6 +27,8 @@ backend:
   role:
     choice_role: Choose a role
   user:
+    show: Show
+    reclamations: Reclamation List
     listing: Listing
     user_listing: List of users
     group_actions: Group action

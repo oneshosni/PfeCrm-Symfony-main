@@ -137,7 +137,6 @@ class UserController extends BaseController
 
     /**
      * @Route("/admin/user/changePassword",name="app_admin_changepswd")
-     * @IsGranted("ROLE_SUPERUSER")
      */
     public function changePswd(Request $request, TranslatorInterface $translator)
     {
@@ -194,5 +193,16 @@ class UserController extends BaseController
         }
         $this->entityManager->flush();
         return $this->json(["message" => "success", "nb" => count($users)]);
+    }
+
+
+    /**
+     * @Route("/admin/user/profile",name="app_admin_user_profile")
+     * @IsGranted("ROLE_USER")
+     */
+    public function profile()
+    {
+
+        return $this->render("admin/user/profile.html.twig");
     }
 }

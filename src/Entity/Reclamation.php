@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReclamationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 /**
@@ -53,6 +55,8 @@ class Reclamation
      * @ORM\JoinColumn(nullable=false)
      */
     private $createdBy;
+
+
 
     public function getId(): ?int
     {
@@ -142,4 +146,5 @@ class Reclamation
 
         return $this;
     }
+
 }

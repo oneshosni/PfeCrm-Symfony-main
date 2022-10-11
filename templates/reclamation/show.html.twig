@@ -31,6 +31,12 @@
                 <th>CreatedAt</th>
                 <td>{{ reclamation.createdAt ? reclamation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            {% if is_granted("ROLE_SUPERUSER") %}
+            <tr>
+                <th>Concernat le client</th>
+                <td>{{ reclamation.createdBy.nomComplet}}</td>
+            </tr>
+            {%  endif %}
             <tr>
                 <th>Deleted</th>
                 <td>{{ reclamation.deleted ? 'Yes' : 'No' }}</td>

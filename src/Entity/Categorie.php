@@ -53,6 +53,11 @@ class Categorie
      */
     private $blogPosts;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=DemandeInfo::class, inversedBy="categories")
+     */
+    private $DemandeInfo;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -172,6 +177,18 @@ class Categorie
             $this->blogPosts->removeElement($blogPost);
             $blogPost->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getDemandeInfo(): ?DemandeInfo
+    {
+        return $this->DemandeInfo;
+    }
+
+    public function setDemandeInfo(?DemandeInfo $DemandeInfo): self
+    {
+        $this->DemandeInfo = $DemandeInfo;
 
         return $this;
     }
